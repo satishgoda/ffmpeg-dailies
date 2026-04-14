@@ -18,14 +18,14 @@ flowchart LR
 
   subgraph repo["ffmpeg-dailies"]
     direction TB
-    api["CLI / Python API<br/><font point-size='12'>run_dailies • python -m ffmpeg_dailies • render()</font>"]
-    gui["Slate Layout GUI<br/><font point-size='12'>FastAPI app + browser editor</font>"]
-    engine["Render Orchestrator<br/><font point-size='12'>config parsing • metadata resolution • filtergraph assembly • FFmpeg command build</font>"]
+    api["CLI / Python API<br/>run_dailies • python -m ffmpeg_dailies • render()"]
+    gui["Slate Layout GUI<br/>FastAPI app + browser editor"]
+    engine["Render Orchestrator<br/>config parsing • metadata resolution • filtergraph assembly • FFmpeg command build"]
   end
 
-  assets[("Project Assets<br/><font point-size='12'>YAML config • input media • fonts • slate template • OCIO config</font>")]
-  ffmpeg["FFmpeg / ffprobe<br/><font point-size='12'>preview generation • probing • encoding</font>"]
-  output[("Rendered Dailies<br/><font point-size='12'>MOV / MP4 with slate, burn-ins, metadata</font>")]
+  assets[("Project Assets<br/>YAML config • input media • fonts • slate template • OCIO config")]
+  ffmpeg["FFmpeg / ffprobe<br/>preview generation • probing • encoding"]
+  output[("Rendered Dailies<br/>MOV / MP4 with slate, burn-ins, metadata")]
 
   user --> api
   user --> gui

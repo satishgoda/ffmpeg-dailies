@@ -16,23 +16,23 @@
 flowchart LR
   subgraph entrypoints["Entry points"]
     direction TB
-    init["ffmpeg_dailies.__init__<br/><font point-size='12'>render()</font>"]
-    cli["ffmpeg_dailies.cli / __main__<br/><font point-size='12'>CLI parsing + dispatch</font>"]
-    gui_main["ffmpeg_dailies.gui.__main__<br/><font point-size='12'>launches Uvicorn app</font>"]
+    init["ffmpeg_dailies.__init__<br/>render()"]
+    cli["ffmpeg_dailies.cli / __main__<br/>CLI parsing + dispatch"]
+    gui_main["ffmpeg_dailies.gui.__main__<br/>launches Uvicorn app"]
   end
 
   subgraph core["Core pipeline"]
     direction LR
-    config["config.py<br/><font point-size='12'>parse YAML into typed settings</font>"]
-    models["models.py<br/><font point-size='12'>DailiesContext + config dataclasses</font>"]
-    utils["utils.py<br/><font point-size='12'>resolve input • metadata • timecode • reel</font>"]
-    filters["filtergraph.py<br/><font point-size='12'>slate • PIP • scaling • burn-ins • OCIO</font>"]
-    execute["execute.py<br/><font point-size='12'>validate filters • build command • run ffmpeg</font>"]
+    config["config.py<br/>parse YAML into typed settings"]
+    models["models.py<br/>DailiesContext + config dataclasses"]
+    utils["utils.py<br/>resolve input • metadata • timecode • reel"]
+    filters["filtergraph.py<br/>slate • PIP • scaling • burn-ins • OCIO"]
+    execute["execute.py<br/>validate filters • build command • run ffmpeg"]
   end
 
   subgraph gui["GUI service"]
     direction TB
-    app["gui/app.py<br/><font point-size='12'>state API • save API • preview API</font>"]
+    app["gui/app.py<br/>state API • save API • preview API"]
   end
 
   ffmpeg["FFmpeg / ffprobe"]

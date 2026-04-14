@@ -2,7 +2,7 @@
 
 These rendered graph diagrams replace the earlier embedded Mermaid blocks with more controlled layouts and checked-in static output.
 
-The checked-in `docs/diagrams/puppeteer-config.json` disables the Chromium sandbox because Mermaid CLI often runs in restricted CI or container environments where the sandbox cannot start. If your local machine supports the default sandbox, you can omit `-p docs/diagrams/puppeteer-config.json`.
+The checked-in `docs/diagrams/puppeteer-config.json` disables the Chromium sandbox because Mermaid CLI often runs in restricted CI or container environments where the sandbox cannot start. Use that config only in trusted environments where this tradeoff is acceptable; if your local machine supports the default sandbox, omit `-p docs/diagrams/puppeteer-config.json`.
 
 ## 1. System context
 
