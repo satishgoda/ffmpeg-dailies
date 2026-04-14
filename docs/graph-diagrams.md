@@ -2,6 +2,8 @@
 
 These rendered graph diagrams replace the earlier embedded Mermaid blocks with more controlled layouts and checked-in static output.
 
+The checked-in `docs/diagrams/puppeteer-config.json` disables the Chromium sandbox because Mermaid CLI often runs in restricted CI or container environments where the sandbox cannot start. If your local machine supports the default sandbox, you can omit `-p docs/diagrams/puppeteer-config.json`.
+
 ## 1. System context
 
 ![System context diagram](diagrams/rendered/system-context.svg)
@@ -27,7 +29,10 @@ These rendered graph diagrams replace the earlier embedded Mermaid blocks with m
 
 ```bash
 cd "$(git rev-parse --show-toplevel)"
-npx -y @mermaid-js/mermaid-cli -p docs/diagrams/puppeteer-config.json -i docs/diagrams/system-context.mmd -o docs/diagrams/rendered/system-context.svg
-npx -y @mermaid-js/mermaid-cli -p docs/diagrams/puppeteer-config.json -i docs/diagrams/runtime-containers.mmd -o docs/diagrams/rendered/runtime-containers.svg
-npx -y @mermaid-js/mermaid-cli -p docs/diagrams/puppeteer-config.json -i docs/diagrams/component-flow.mmd -o docs/diagrams/rendered/component-flow.svg
+for name in system-context runtime-containers component-flow; do
+  npx -y @mermaid-js/mermaid-cli \
+    -p docs/diagrams/puppeteer-config.json \
+    -i "docs/diagrams/${name}.mmd" \
+    -o "docs/diagrams/rendered/${name}.svg"
+done
 ```
