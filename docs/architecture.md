@@ -87,7 +87,7 @@ The GUI is a local editing companion for the slate layout rather than a separate
 
 1. Start with [`README.md`](../README.md) for setup, usage, and configuration examples.
 2. Read [`docs/graph-diagrams.md`](./graph-diagrams.md) for rendered system, container, and component views.
-3. Use [`docs/c4-diagrams.md`](./c4-diagrams.md) for the legacy Mermaid C4 note and source links.
+3. Use [`docs/c4-diagrams.md`](./c4-diagrams.md) only if you need the historical note that explains why the embedded C4 blocks were replaced.
 4. Inspect `ffmpeg_dailies/__init__.py` and `ffmpeg_dailies/execute.py` to understand the render entry path.
 5. Inspect `ffmpeg_dailies/filtergraph.py` to understand how the slate and burn-ins are composed.
 6. Inspect `ffmpeg_dailies/gui/app.py` if you are changing the layout editor or preview API.

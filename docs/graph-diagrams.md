@@ -26,7 +26,7 @@ These rendered graph diagrams replace the earlier embedded Mermaid blocks with m
 ## Regenerating the SVGs
 
 ```bash
-cd /home/runner/work/ffmpeg-dailies/ffmpeg-dailies
+cd "$(git rev-parse --show-toplevel)"
 npx -y @mermaid-js/mermaid-cli -p docs/diagrams/puppeteer-config.json -i docs/diagrams/system-context.mmd -o docs/diagrams/rendered/system-context.svg
 npx -y @mermaid-js/mermaid-cli -p docs/diagrams/puppeteer-config.json -i docs/diagrams/runtime-containers.mmd -o docs/diagrams/rendered/runtime-containers.svg
 npx -y @mermaid-js/mermaid-cli -p docs/diagrams/puppeteer-config.json -i docs/diagrams/component-flow.mmd -o docs/diagrams/rendered/component-flow.svg
