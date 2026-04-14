@@ -1,0 +1,50 @@
+%%{init: {
+  "theme": "base",
+  "flowchart": {"curve": "basis", "nodeSpacing": 42, "rankSpacing": 62, "padding": 18},
+  "themeVariables": {
+    "background": "#0f172a",
+    "primaryColor": "#1d4ed8",
+    "primaryTextColor": "#eff6ff",
+    "primaryBorderColor": "#bfdbfe",
+    "lineColor": "#60a5fa",
+    "secondaryColor": "#7c3aed",
+    "tertiaryColor": "#0f766e",
+    "fontFamily": "Inter, Segoe UI, Arial, sans-serif",
+    "fontSize": "16px"
+  }
+}}%%
+flowchart LR
+  user["🧑 Pipeline TD / Artist<br/>Runs dailies, edits layouts, reviews outputs"]
+
+  subgraph repo["ffmpeg-dailies"]
+    direction TB
+    api["CLI / Python API<br/><font point-size='12'>run_dailies • python -m ffmpeg_dailies • render()</font>"]
+    gui["Slate Layout GUI<br/><font point-size='12'>FastAPI app + browser editor</font>"]
+    engine["Render Orchestrator<br/><font point-size='12'>config parsing • metadata resolution • filtergraph assembly • FFmpeg command build</font>"]
+  end
+
+  assets[("Project Assets<br/><font point-size='12'>YAML config • input media • fonts • slate template • OCIO config</font>")]
+  ffmpeg["FFmpeg / ffprobe<br/><font point-size='12'>preview generation • probing • encoding</font>"]
+  output[("Rendered Dailies<br/><font point-size='12'>MOV / MP4 with slate, burn-ins, metadata</font>")]
+
+  user --> api
+  user --> gui
+  api --> engine
+  gui --> engine
+  assets --> engine
+  gui -. edits .-> assets
+  engine --> ffmpeg
+  ffmpeg --> output
+  output --> user
+
+  classDef person fill:#2563eb,stroke:#dbeafe,color:#eff6ff,stroke-width:2px;
+  classDef service fill:#7c3aed,stroke:#e9d5ff,color:#f5f3ff,stroke-width:2px;
+  classDef core fill:#0f766e,stroke:#99f6e4,color:#ecfeff,stroke-width:2px;
+  classDef store fill:#0b5ed7,stroke:#bfdbfe,color:#eff6ff,stroke-width:2px;
+  classDef output fill:#059669,stroke:#a7f3d0,color:#ecfdf5,stroke-width:2px;
+
+  class user person;
+  class api,gui service;
+  class engine,ffmpeg core;
+  class assets store;
+  class output output;

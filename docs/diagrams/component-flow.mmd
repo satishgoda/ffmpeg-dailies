@@ -1,0 +1,70 @@
+%%{init: {
+  "theme": "base",
+  "flowchart": {"curve": "basis", "nodeSpacing": 38, "rankSpacing": 62, "padding": 18},
+  "themeVariables": {
+    "background": "#0b1120",
+    "primaryColor": "#1d4ed8",
+    "primaryTextColor": "#f8fafc",
+    "primaryBorderColor": "#93c5fd",
+    "lineColor": "#7dd3fc",
+    "secondaryColor": "#8b5cf6",
+    "tertiaryColor": "#059669",
+    "fontFamily": "Inter, Segoe UI, Arial, sans-serif",
+    "fontSize": "15px"
+  }
+}}%%
+flowchart LR
+  subgraph entrypoints["Entry points"]
+    direction TB
+    init["ffmpeg_dailies.__init__<br/><font point-size='12'>render()</font>"]
+    cli["ffmpeg_dailies.cli / __main__<br/><font point-size='12'>CLI parsing + dispatch</font>"]
+    gui_main["ffmpeg_dailies.gui.__main__<br/><font point-size='12'>launches Uvicorn app</font>"]
+  end
+
+  subgraph core["Core pipeline"]
+    direction LR
+    config["config.py<br/><font point-size='12'>parse YAML into typed settings</font>"]
+    models["models.py<br/><font point-size='12'>DailiesContext + config dataclasses</font>"]
+    utils["utils.py<br/><font point-size='12'>resolve input • metadata • timecode • reel</font>"]
+    filters["filtergraph.py<br/><font point-size='12'>slate • PIP • scaling • burn-ins • OCIO</font>"]
+    execute["execute.py<br/><font point-size='12'>validate filters • build command • run ffmpeg</font>"]
+  end
+
+  subgraph gui["GUI service"]
+    direction TB
+    app["gui/app.py<br/><font point-size='12'>state API • save API • preview API</font>"]
+  end
+
+  ffmpeg["FFmpeg / ffprobe"]
+  files[("Config + media + templates")]
+  deliverable[("Rendered output")]
+
+  cli --> init
+  init --> config
+  init --> utils
+  config --> models
+  utils --> models
+  models --> filters
+  filters --> execute
+  execute --> ffmpeg
+  files --> config
+  files --> utils
+  ffmpeg --> deliverable
+
+  gui_main --> app
+  app --> config
+  app --> utils
+  app --> execute
+  app --> files
+
+  classDef entry fill:#7c3aed,stroke:#e9d5ff,color:#faf5ff,stroke-width:2px;
+  classDef core fill:#0f766e,stroke:#99f6e4,color:#ecfeff,stroke-width:2px;
+  classDef gui fill:#2563eb,stroke:#bfdbfe,color:#eff6ff,stroke-width:2px;
+  classDef ext fill:#1e40af,stroke:#93c5fd,color:#eff6ff,stroke-width:2px;
+  classDef out fill:#059669,stroke:#a7f3d0,color:#ecfdf5,stroke-width:2px;
+
+  class init,cli,gui_main entry;
+  class config,models,utils,filters,execute core;
+  class app gui;
+  class ffmpeg,files ext;
+  class deliverable out;

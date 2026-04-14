@@ -26,7 +26,8 @@ Slate Layout GUI to help position the slate fields:
 ## Documentation
 
 - [Architecture guide](docs/architecture.md)
-- [C4 Mermaid diagrams](docs/c4-diagrams.md)
+- [Graph diagrams](docs/graph-diagrams.md)
+- [Legacy C4 Mermaid note](docs/c4-diagrams.md)
 
 ## Quick Start
 

@@ -1,0 +1,62 @@
+%%{init: {
+  "theme": "base",
+  "flowchart": {"curve": "linear", "nodeSpacing": 40, "rankSpacing": 70, "padding": 18},
+  "themeVariables": {
+    "background": "#111827",
+    "primaryColor": "#1e40af",
+    "primaryTextColor": "#f9fafb",
+    "primaryBorderColor": "#93c5fd",
+    "lineColor": "#60a5fa",
+    "secondaryColor": "#7c3aed",
+    "tertiaryColor": "#059669",
+    "fontFamily": "Inter, Segoe UI, Arial, sans-serif",
+    "fontSize": "15px"
+  }
+}}%%
+flowchart TB
+  user["🧑 Pipeline TD / Artist"]
+
+  subgraph repo["ffmpeg-dailies runtime"]
+    direction TB
+
+    subgraph interfaces["Interface layer"]
+      direction LR
+      entry["CLI + Python API<br/><font point-size='12'>parse flags • accept metadata overrides • create render request</font>"]
+      gui["Slate Layout GUI<br/><font point-size='12'>serve editor • save field positions • request previews</font>"]
+    end
+
+    subgraph services["Core services"]
+      direction LR
+      config["Configuration parser<br/><font point-size='12'>load YAML • globals • slate • burn-ins • OCIO • codecs</font>"]
+      metadata["Input + metadata services<br/><font point-size='12'>resolve sequences • implicit metadata • timecode • reel name</font>"]
+      render["Rendering engine<br/><font point-size='12'>build DailiesContext • filtergraph • command • output metadata</font>"]
+    end
+  end
+
+  files[("Filesystem<br/><font point-size='12'>media • configs • templates • fonts • output files</font>")]
+  ffmpeg["FFmpeg / ffprobe<br/><font point-size='12'>filters • previews • final encode</font>"]
+
+  user --> entry
+  user --> gui
+  entry --> config
+  entry --> metadata
+  config --> render
+  metadata --> render
+  gui --> config
+  gui --> metadata
+  gui --> render
+  config <--> files
+  metadata <--> files
+  render --> ffmpeg
+  render <--> files
+  gui -. preview assets .-> ffmpeg
+
+  classDef actor fill:#2563eb,stroke:#dbeafe,color:#eff6ff,stroke-width:2px;
+  classDef interface fill:#7c3aed,stroke:#e9d5ff,color:#faf5ff,stroke-width:2px;
+  classDef service fill:#0f766e,stroke:#99f6e4,color:#f0fdfa,stroke-width:2px;
+  classDef external fill:#1d4ed8,stroke:#bfdbfe,color:#eff6ff,stroke-width:2px;
+
+  class user actor;
+  class entry,gui interface;
+  class config,metadata,render service;
+  class files,ffmpeg external;
