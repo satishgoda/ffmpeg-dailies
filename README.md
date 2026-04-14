@@ -23,6 +23,11 @@ Slate Layout GUI to help position the slate fields:
 - **Python API** — call `ffmpeg_dailies.render()` directly from ShotGrid, Nuke, or any Python environment
 - **Movie metadata** — writes additional metadata to the output movie file.
 
+## Documentation
+
+- [Architecture guide](docs/architecture.md)
+- [C4 Mermaid diagrams](docs/c4-diagrams.md)
+
 ## Quick Start
 
 ### Prerequisites
